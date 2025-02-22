@@ -4,9 +4,7 @@ const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
 const [N, M] = input[0].split(" ").map(Number);
 
-let arr = Array(N)
-  .fill(0)
-  .map((_n, i) => i + 1);
+let arr = Array.from({ length: N }, (_, i) => i + 1);
 
 for (let i = 1; i <= M; i++) {
   const [idx1, idx2] = input[i].split(" ").map((v) => Number(v) - 1);
@@ -24,4 +22,25 @@ function reverseArray(arr) {
   return result;
 }
 
-console.log(arr);
+console.log(arr.join(" "));
+
+// 정석 풀이
+
+// const fs = require("fs");
+
+// const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
+
+// const [N, M] = input[0].split(" ").map(Number);
+// let arr = Array.from({ length: N }, (_, i) => i + 1);
+
+// for (let i = 1; i <= M; i++) {
+//   let [start, end] = input[i].split(" ").map((v) => Number(v) - 1);
+
+//   while (start < end) {
+//     [arr[start], arr[end]] = [arr[end], arr[start]]; // swap
+//     start++;
+//     end--;
+//   }
+// }
+
+// console.log(arr.join(" "));
