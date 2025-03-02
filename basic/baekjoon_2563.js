@@ -1,28 +1,23 @@
 const fs = require("fs");
-
 const input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
 
 const N = Number(input[0]);
-const positions = [];
+const board = Array.from({ length: 100 }, () => Array(100).fill(0));
+
 for (let i = 1; i <= N; i++) {
   const [x, y] = input[i].split(" ").map(Number);
-  positions.push([x, y]);
-}
-
-let overlapSum = 0;
-for (let i = 0; i < N; i++) {
-  const [x1, y1] = positions[i];
-  for (let j = i + 1; j < N; j++) {
-    const [x2, y2] = positions[j];
-
-    const overlapX = Math.min(x1 + 10, x2 + 10) - Math.max(x1, x2);
-    const overlapY = Math.min(y1 + 10, y2 + 10) - Math.max(y1, y2);
-
-    if (overlapX > 0 && overlapY > 0) {
-      overlapSum += overlapX * overlapY;
+  for (let r = y; r < y + 10; r++) {
+    for (let c = x; c < x + 10; c++) {
+      board[r][c] = 1;
     }
   }
 }
 
-const totalArea = 100 * N - overlapSum;
+let totalArea = 0;
+for (let r = 0; r < 100; r++) {
+  for (let c = 0; c < 100; c++) {
+    if (board[r][c] === 1) totalArea++;
+  }
+}
+
 console.log(totalArea);
